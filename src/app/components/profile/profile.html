@@ -1,0 +1,53 @@
+<div class="profile-container">
+  <div class="profile-header">
+    <h1>User Profile</h1>
+    <button class="btn btn-danger" (click)="logout()">Logout</button>
+  </div>
+
+  <div *ngIf="currentUser" class="profile-card">
+    <h2>Personal Information</h2>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="label">Name:</span>
+        <span class="value">{{ currentUser.name }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Email:</span>
+        <span class="value">{{ currentUser.email }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">Phone:</span>
+        <span class="value">{{ currentUser.phone }}</span>
+      </div>
+      <div class="info-item">
+        <span class="label">User ID:</span>
+        <span class="value">{{ currentUser.id }}</span>
+      </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="goToBooking()">Book Seats</button>
+  </div>
+
+  <div class="bookings-card">
+    <h2>My Bookings</h2>
+    
+    <div *ngIf="userBookings.length === 0" class="no-bookings">
+      <p>You haven't booked any seats yet.</p>
+      <button class="btn btn-primary" (click)="goToBooking()">Book Now</button>
+    </div>
+
+    <div *ngIf="userBookings.length > 0" class="bookings-list">
+      <div *ngFor="let booking of userBookings; let i = index" class="booking-item">
+        <div class="booking-details">
+          <h3>{{ getEventName(booking.eventId) }}</h3>
+          <p><strong>Venue:</strong> {{ getEventVenue(booking.eventId) }}</p>
+          <p><strong>Seat:</strong> {{ booking.seatNumber }}</p>
+          <p><strong>Booked on:</strong> {{ booking.bookingDate | date:'short' }}</p>
+        </div>
+        <button class="btn btn-danger btn-small" (click)="cancelBooking(booking.eventId, booking.seatNumber, i)">
+          Cancel Booking
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

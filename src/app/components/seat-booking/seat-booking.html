@@ -1,0 +1,76 @@
+<div class="booking-container">
+  <div class="booking-header">
+    <h1>Seat Booking System</h1>
+    <button class="btn btn-secondary" (click)="goToProfile()">Back to Profile</button>
+  </div>
+
+  <!-- Events Selection -->
+  <div class="events-section">
+    <h2>Select an Event</h2>
+    <div class="events-grid">
+      <div *ngFor="let event of events" 
+           class="event-card" 
+           [class.selected]="selectedEvent?.id === event.id"
+           (click)="selectEvent(event)">
+        <h3>{{ event.name }}</h3>
+        <p><strong>Date:</strong> {{ event.date | date:'mediumDate' }}</p>
+        <p><strong>Venue:</strong> {{ event.venue }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Seats Selection -->
+  <div *ngIf="selectedEvent" class="seats-section">
+    <h2>{{ selectedEvent.name }} - Select Your Seats</h2>
+    
+    <div class="seats-info">
+      <p>Available Seats: <strong>{{ getAvailableSeatsCount() }}/{{ getTotalSeatsCount() }}</strong></p>
+      <p>Selected Seats: <strong>{{ selectedSeats.length }}</strong></p>
+      <div class="legend">
+        <span class="legend-item"><span class="seat available"></span> Available</span>
+        <span class="legend-item"><span class="seat booked"></span> Booked</span>
+        <span class="legend-item"><span class="seat selected"></span> Selected</span>
+      </div>
+    </div>
+
+    <div *ngIf="bookingSuccess" class="alert alert-success">
+      {{ bookingSuccess }}
+    </div>
+
+    <div class="seats-grid">
+      <div *ngFor="let seat of seats" 
+           class="seat-container">
+        <button 
+          class="seat"
+          [class.booked]="isSeatBooked(seat)"
+          [class.selected]="isSeatSelected(seat.seatNumber)"
+          [disabled]="isSeatBooked(seat)"
+          (click)="toggleSeat(seat)"
+          [title]="seat.seatNumber">
+          {{ seat.seatNumber }}
+        </button>
+      </div>
+    </div>
+
+    <div class="selected-seats">
+      <h3>Selected Seats:</h3>
+      <div *ngIf="selectedSeats.length > 0" class="seat-list">
+        <span *ngFor="let seat of selectedSeats" class="seat-badge">
+          {{ seat }}
+        </span>
+      </div>
+      <p *ngIf="selectedSeats.length === 0" class="no-selection">No seats selected</p>
+    </div>
+
+    <button 
+      class="btn btn-primary btn-large"
+      (click)="bookSeats()"
+      [disabled]="selectedSeats.length === 0">
+      Book Selected Seats ({{ selectedSeats.length }})
+    </button>
+  </div>
+
+  <div *ngIf="!selectedEvent" class="no-selection-message">
+    <p>Please select an event to view available seats</p>
+  </div>
+</div>
