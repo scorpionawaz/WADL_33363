@@ -5,7 +5,7 @@ version: '3.8'
 services:
   app:
     build:
-      context: ./2a
+      context: .
       dockerfile: Dockerfile
     container_name: seat-booking-app
     ports:
@@ -13,7 +13,7 @@ services:
     environment:
       - NODE_ENV=production
     volumes:
-      - ./2a:/app
+      - .:/app
     restart: unless-stopped
     networks:
       - seat-booking-network
