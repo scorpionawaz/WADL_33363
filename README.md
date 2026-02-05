@@ -1,6 +1,40 @@
-# SeatBookingApp
+# Seat Booking Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+A modern Angular-based web application for event seat booking with user authentication and profile management.
+
+## Features
+
+- **User Authentication**: Register and Login functionality
+- **User Profile**: View and manage user information
+- **Seat Booking System**: Browse events and book seats in real-time
+- **Event Management**: Multiple events with different venues
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+
+## Technologies Used
+
+- Angular 21+
+- TypeScript
+- RxJS
+- CSS3
+- Google Fonts (Poppins, Inter)
+
+## Project Structure
+
+```
+src/
+├── app/
+│   ├── components/
+│   │   ├── login/
+│   │   ├── register/
+│   │   ├── profile/
+│   │   └── seat-booking/
+│   ├── services/
+│   │   ├── auth.ts          # Authentication service
+│   │   └── booking.ts       # Seat booking service
+│   ├── app.routes.ts        # Application routing
+│   └── app.ts               # Root component
+└── styles.css               # Global styles
+```
 
 ## Development server
 
@@ -10,21 +44,12 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/` in your browser. The application will automatically reload when you modify any source files.
 
-## Code scaffolding
+## Demo Credentials
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
+- **Email**: demo@example.com
+- **Password**: password123
 
 ## Building
 
@@ -34,26 +59,48 @@ To build the project run:
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+## Installation
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
+1. Clone the repository:
 ```bash
-ng test
+git clone https://github.com/scorpionawaz/WADL_33363.git
+cd seat-booking-app
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+2. Install dependencies:
 ```bash
-ng e2e
+npm install
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+3. Start the development server:
+```bash
+ng serve --open
+```
 
-## Additional Resources
+## Features Guide
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Registration
+- Create a new account with email, password, name, and phone number
+- Validation for password strength and matching passwords
+
+### Login
+- Login with registered credentials
+- Try demo account for quick access
+
+### Profile
+- View user information
+- See all booked seats
+- Cancel previous bookings
+
+### Seat Booking
+- Browse available events
+- View seat layout in real-time
+- Select and book multiple seats
+- See booking confirmation
+
+## License
+
+This project is open source and available under the MIT License.
+
