@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>User Registration - AJAX</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body{
+background:#f4f6f9;
+}
+
+.container-box{
+max-width:700px;
+margin:auto;
+margin-top:40px;
+}
+
+.page{
+display:none;
+}
+
+.active{
+display:block;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container container-box">
+
+<h2 class="text-center mb-4">User Registration (AJAX + LocalStorage)</h2>
+
+<!-- Registration Page -->
+<div id="registerPage" class="page active">
+
+<div class="card">
+<div class="card-body">
+
+<form id="regForm">
+
+<div class="mb-3">
+<label>Name</label>
+<input type="text" id="name" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Email</label>
+<input type="email" id="email" class="form-control" required>
+</div>
+
+<div class="mb-3">
+<label>Mobile</label>
+<input type="text" id="mobile" class="form-control" required>
+</div>
+
+<button type="submit" class="btn btn-primary">Register</button>
+<button type="button" class="btn btn-success" onclick="showUsers()">View Users</button>
+
+</form>
+
+</div>
+</div>
+
+</div>
+
+
+<!-- User List Page -->
+<div id="userPage" class="page">
+
+<div class="card">
+<div class="card-body">
+
+<h4 class="mb-3">Registered Users</h4>
+
+<table class="table table-bordered">
+
+<thead>
+<tr>
+<th>Name</th>
+<th>Email</th>
+<th>Mobile</th>
+</tr>
+</thead>
+
+<tbody id="userTable">
+</tbody>
+
+</table>
+
+<button class="btn btn-secondary" onclick="goBack()">Back</button>
+
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+let users = JSON.parse(localStorage.getItem("users")) || [];
+
+
+document.getElementById("regForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+let name = document.getElementById("name").value;
+let email = document.getElementById("email").value;
+let mobile = document.getElementById("mobile").value;
+
+let user = {
+name:name,
+email:email,
+mobile:mobile
+};
+
+
+/* AJAX POST Simulation */
+
+let xhr = new XMLHttpRequest();
+
+xhr.open("POST","/register",true);
+
+xhr.onload = function(){
+
+users.push(user);
+
+localStorage.setItem("users", JSON.stringify(users));
+
+alert("User Registered Successfully");
+
+document.getElementById("regForm").reset();
+
+};
+
+xhr.send(JSON.stringify(user));
+
+});
+
+
+
+function showUsers(){
+
+document.getElementById("registerPage").classList.remove("active");
+document.getElementById("userPage").classList.add("active");
+
+let table = document.getElementById("userTable");
+
+table.innerHTML="";
+
+let storedUsers = JSON.parse(localStorage.getItem("users")) || [];
+
+storedUsers.forEach(function(u){
+
+table.innerHTML += `
+<tr>
+<td>${u.name}</td>
+<td>${u.email}</td>
+<td>${u.mobile}</td>
+</tr>
+`;
+
+});
+
+}
+
+
+
+function goBack(){
+
+document.getElementById("userPage").classList.remove("active");
+document.getElementById("registerPage").classList.add("active");
+
+}
+
+</script>
+
+</body>
+</html>
